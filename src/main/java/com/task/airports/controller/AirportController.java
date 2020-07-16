@@ -19,7 +19,6 @@ public class AirportController {
 	@Autowired
 	private AirportService airportService;
 
-	
 	@GetMapping("/list")
 	public String searchAirport(Model model) {
 		List<Airport> listAirports = airportService.findAll();
@@ -55,7 +54,7 @@ public class AirportController {
 	
 	@GetMapping("/country")
 	public String searchAirportByCountry(@RequestParam(value = "keyword") String keyword, Model model) {
-		List<Airport> listAirports = airportService.findByName(keyword);
+		List<Airport> listAirports = airportService.findByCountry(keyword);
 		model.addAttribute("airports", listAirports);	
 		return "search-airports";
 	}
@@ -87,11 +86,11 @@ public class AirportController {
 		
 	}
 	
-	@GetMapping("/longtitude")
-	public String searchAirportByLongtitude(@RequestParam(value = "keyword") String keyword, Model model) {
+	@GetMapping("/longitude")
+	public String searchAirportByLongitude(@RequestParam(value = "keyword") String keyword, Model model) {
 		
 		if (keyword.matches("^-?\\d+(\\.\\d+)?$")) {
-			List<Airport> listAirports = airportService.findByLongtitude(keyword);
+			List<Airport> listAirports = airportService.findByLongitude(keyword);
 			model.addAttribute("airports", listAirports);	
 			return "search-airports";
 		}

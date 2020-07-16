@@ -32,8 +32,8 @@ public interface AirportRepository extends JpaRepository<Airport, Integer>{
 	@Query("SELECT a FROM Airport a WHERE a.latitude LIKE :search% ORDER BY a.latitude ASC")
 	public List<Airport> findByLatitude(@Param("search") String latitude);
 
-	@Query("SELECT a FROM Airport a WHERE a.longtitude LIKE :search% ORDER BY a.longtitude ASC")
-	public List<Airport> findByLongtitude(@Param("search") String longtitude);
+	@Query("SELECT a FROM Airport a WHERE a.longitude LIKE :search% ORDER BY a.longitude ASC")
+	public List<Airport> findByLongitude(@Param("search") String longitude);
 	
 	@Query("SELECT a FROM Airport a WHERE a.altitude LIKE :search% ORDER BY a.altitude ASC")
 	public List<Airport> findByAltitude(@Param("search") String altitude);

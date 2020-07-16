@@ -59,8 +59,8 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	@Override
-	public List<Airport> findByLongtitude(String longtitude) {
-		return airportRepository.findByLongtitude(longtitude);
+	public List<Airport> findByLongitude(String longitude) {
+		return airportRepository.findByLongitude(longitude);
 	}
 
 	@Override
