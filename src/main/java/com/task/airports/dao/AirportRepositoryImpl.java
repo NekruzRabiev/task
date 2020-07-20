@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.task.airports.model.Airport;
 import com.task.airports.util.AirportCsvReader;
+
 import com.task.airports.util.comparators.AltitudeComparator;
 import com.task.airports.util.comparators.CityComparator;
 import com.task.airports.util.comparators.CodeComparator;
@@ -105,6 +106,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 
 	@Override
 	public List<Airport> findByCode(String code) {
+
 		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
 
@@ -261,7 +263,6 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 
 		Collections.sort(airports, new SourceComparator());
-
 		return airportList;
 	}
 
