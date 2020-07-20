@@ -6,16 +6,14 @@ import com.task.airports.model.Airport;
 
 public class AltitudeComparator implements Comparator<Airport>{
 
-	private int compareTo(Airport o1, Airport o2) {
-		return o1.getAltitude().compareTo(o2.getAltitude());
-		
-	}
 	@Override
 	public int compare(Airport o1, Airport o2) {
+		int num1 = Integer.parseInt(o1.getAltitude());
+		int num2 = Integer.parseInt(o2.getAltitude());
 		
-		if(compareTo(o1, o2) >= 1) {
+		if(num1 > num2) {
 			return 1;
-		} else if (compareTo(o1, o2) <= -1) {
+		} else if (num1 < num2) {
 			return -1;
 		} else {
 			return 0;

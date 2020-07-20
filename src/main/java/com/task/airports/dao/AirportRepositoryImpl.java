@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.task.airports.model.Airport;
 import com.task.airports.util.AirportCsvReader;
 import com.task.airports.util.CompareBy;
+import com.task.airports.util.comparators.AltitudeComparator;
+import com.task.airports.util.comparators.IdComparator;
+import com.task.airports.util.comparators.OffsetComparator;
 
 @Repository
 public class AirportRepositoryImpl implements AirportRepository {
@@ -38,7 +41,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 		
 
-		Collections.sort(airportList, CompareBy.ID);
+		Collections.sort(airportList, new IdComparator());
 
 		return airportList;
 	}
@@ -167,7 +170,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.ALTITUDE);
+		Collections.sort(airportList, new AltitudeComparator());
 
 		return airportList;
 	}
@@ -183,7 +186,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.OFFSET);
+		Collections.sort(airportList, new OffsetComparator());
 
 		return airportList;
 	}
