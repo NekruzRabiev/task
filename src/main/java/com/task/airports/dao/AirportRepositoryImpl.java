@@ -9,13 +9,24 @@ import org.springframework.stereotype.Repository;
 
 import com.task.airports.model.Airport;
 import com.task.airports.util.AirportCsvReader;
-import com.task.airports.util.CompareBy;
+import com.task.airports.util.comparators.AltitudeComparator;
+import com.task.airports.util.comparators.CityComparator;
+import com.task.airports.util.comparators.CodeComparator;
+import com.task.airports.util.comparators.CountryComparator;
+import com.task.airports.util.comparators.DstComparator;
+import com.task.airports.util.comparators.IcaoComparator;
+import com.task.airports.util.comparators.IdComparator;
+import com.task.airports.util.comparators.LatitudeComparator;
+import com.task.airports.util.comparators.LongitudeComparator;
+import com.task.airports.util.comparators.NameComparator;
+import com.task.airports.util.comparators.SourceComparator;
+import com.task.airports.util.comparators.TimezoneComparator;
+import com.task.airports.util.comparators.TypeComparator;
 
 @Repository
 public class AirportRepositoryImpl implements AirportRepository {
 	
 	private AirportCsvReader airportReader = new AirportCsvReader();
-	private List<Airport> airports = airportReader.readCsvFile();
 	
 	private String upperFirstLetter(String keyword) {
 		return keyword.substring(0, 1).toUpperCase() + keyword.substring(1);
@@ -30,22 +41,24 @@ public class AirportRepositoryImpl implements AirportRepository {
 
 	@Override
 	public List<Airport> findById(String id) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.ID);
 
 		for (Airport airport : airports) {
 			if (airport.getId().startsWith(id)) {
 				airportList.add(airport);
 			}
 		}
+		
+		Collections.sort(airports, new IdComparator());
 
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByName(String name) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.NAME);
 
 		for (Airport airport : airports) {
 			if (airport.getName().startsWith(upperFirstLetter(name))) {
@@ -53,13 +66,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new NameComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByCity(String city) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.CITY);
 
 		for (Airport airport : airports) {
 			if (airport.getCity().startsWith(upperFirstLetter(city))) {
@@ -67,13 +82,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new CityComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByCountry(String country) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.COUNTRY);
 
 		for (Airport airport : airports) {
 			if (airport.getCountry().startsWith(upperFirstLetter(country))) {
@@ -81,13 +98,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new CountryComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByCode(String code) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.CODE);
 
 		for (Airport airport : airports) {
 			if (airport.getCode().startsWith(code.toUpperCase())) {
@@ -95,13 +114,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new CodeComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByIcao(String icao) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.ICAO);
 
 		for (Airport airport : airports) {
 			if (airport.getIcao().startsWith(icao.toUpperCase())) {
@@ -109,13 +130,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new IcaoComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByLatitude(String latitude) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.LATITUDE);
 
 		for (Airport airport : airports) {
 			if (airport.getLatitude().startsWith(latitude)) {
@@ -123,13 +146,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new LatitudeComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByLongitude(String longitude) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.LONGITUDE);
 
 		for (Airport airport : airports) {
 			if (airport.getLongitude().startsWith(longitude)) {
@@ -137,13 +162,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new LongitudeComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByAltitude(String altitude) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.ALTITUDE);
 
 		for (Airport airport : airports) {
 			if (airport.getAltitude().startsWith(altitude)) {
@@ -151,13 +178,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new AltitudeComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByOffset(String offset) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.OFFSET);
 
 		for (Airport airport : airports) {
 			if (airport.getOffset().startsWith(offset)) {
@@ -165,13 +194,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new DstComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByDst(String dst) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.DST);
 
 		for (Airport airport : airports) {
 			if (airport.getDst().startsWith(upperFirstLetter(dst))) {
@@ -179,13 +210,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new DstComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByTimezone(String timezone) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.TIMEZONE);
 
 		for (Airport airport : airports) {
 			if (airport.getTimezone().startsWith(upperFirstLetter(timezone))) {
@@ -193,13 +226,15 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new TimezoneComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByType(String type) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.TYPE);
 		
 		String keyword = type.substring(0, 1).toLowerCase() + type.substring(1);
 		
@@ -209,19 +244,23 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
+		Collections.sort(airports, new TypeComparator());
+
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findBySource(String source) {
+		List<Airport> airports = airportReader.readCsvFile();
 		List<Airport> airportList = new LinkedList<>();
-		Collections.sort(airports, CompareBy.SOURCE);
 
 		for (Airport airport : airports) {
 			if (airport.getSource().startsWith(upperFirstLetter(source))) {
 				airportList.add(airport);
 			}
 		}
+
+		Collections.sort(airports, new SourceComparator());
 
 		return airportList;
 	}

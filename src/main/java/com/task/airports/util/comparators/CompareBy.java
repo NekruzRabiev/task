@@ -1,4 +1,4 @@
-package com.task.airports.util;
+package com.task.airports.util.comparators;
 
 import java.util.Comparator;
 
