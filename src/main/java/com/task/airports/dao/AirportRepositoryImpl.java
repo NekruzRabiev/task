@@ -2,14 +2,12 @@ package com.task.airports.dao;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.task.airports.model.Airport;
 import com.task.airports.util.AirportCsvReader;
-
 import com.task.airports.util.comparators.AltitudeComparator;
 import com.task.airports.util.comparators.CityComparator;
 import com.task.airports.util.comparators.CodeComparator;
@@ -51,6 +49,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 		
+
 		Collections.sort(airportList, new IdComparator());
 
 		return airportList;
