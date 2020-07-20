@@ -8,19 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.task.airports.model.Airport;
 import com.task.airports.util.AirportCsvReader;
-import com.task.airports.util.comparators.AltitudeComparator;
-import com.task.airports.util.comparators.CityComparator;
-import com.task.airports.util.comparators.CodeComparator;
-import com.task.airports.util.comparators.CountryComparator;
-import com.task.airports.util.comparators.DstComparator;
-import com.task.airports.util.comparators.IcaoComparator;
-import com.task.airports.util.comparators.IdComparator;
-import com.task.airports.util.comparators.LatitudeComparator;
-import com.task.airports.util.comparators.LongitudeComparator;
-import com.task.airports.util.comparators.NameComparator;
-import com.task.airports.util.comparators.SourceComparator;
-import com.task.airports.util.comparators.TimezoneComparator;
-import com.task.airports.util.comparators.TypeComparator;
+import com.task.airports.util.CompareBy;
 
 @Repository
 public class AirportRepositoryImpl implements AirportRepository {
@@ -50,7 +38,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 		
 
-		Collections.sort(airportList, new IdComparator());
+		Collections.sort(airportList, CompareBy.ID);
 
 		return airportList;
 	}
@@ -66,7 +54,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new NameComparator());
+		Collections.sort(airportList, CompareBy.NAME);
 
 		return airportList;
 	}
@@ -82,7 +70,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new CityComparator());
+		Collections.sort(airportList, CompareBy.CITY);
 
 		return airportList;
 	}
@@ -98,7 +86,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new CountryComparator());
+		Collections.sort(airportList, CompareBy.COUNTRY);
 
 		return airportList;
 	}
@@ -115,7 +103,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new CodeComparator());
+		Collections.sort(airportList, CompareBy.CODE);
 
 		return airportList;
 	}
@@ -131,7 +119,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new IcaoComparator());
+		Collections.sort(airportList, CompareBy.ICAO);
 
 		return airportList;
 	}
@@ -147,7 +135,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new LatitudeComparator());
+		Collections.sort(airportList, CompareBy.LATITUDE);
 
 		return airportList;
 	}
@@ -163,7 +151,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new LongitudeComparator());
+		Collections.sort(airportList, CompareBy.LONGITUDE);
 
 		return airportList;
 	}
@@ -179,7 +167,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new AltitudeComparator());
+		Collections.sort(airportList, CompareBy.ALTITUDE);
 
 		return airportList;
 	}
@@ -195,7 +183,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new DstComparator());
+		Collections.sort(airportList, CompareBy.OFFSET);
 
 		return airportList;
 	}
@@ -211,7 +199,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new DstComparator());
+		Collections.sort(airportList, CompareBy.DST);
 
 		return airportList;
 	}
@@ -227,7 +215,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new TimezoneComparator());
+		Collections.sort(airportList, CompareBy.TIMEZONE);
 
 		return airportList;
 	}
@@ -245,7 +233,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new TypeComparator());
+		Collections.sort(airportList, CompareBy.TYPE);
 
 		return airportList;
 	}
@@ -261,7 +249,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new SourceComparator());
+		Collections.sort(airportList, CompareBy.SOURCE);
 		return airportList;
 	}
 
