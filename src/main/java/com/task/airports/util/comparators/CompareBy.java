@@ -6,13 +6,6 @@ import com.task.airports.model.Airport;
 
 public class CompareBy {
 
-	public static final Comparator<Airport> ID = 
-			Comparator.nullsFirst(
-					Comparator.comparing(Airport::getId, Comparator.nullsFirst(
-							Comparator.naturalOrder())
-							)
-					);
-
 	public static final Comparator<Airport> NAME = 
 			Comparator.nullsFirst(
 					Comparator.comparing(Airport::getName, Comparator.nullsFirst(
@@ -44,34 +37,6 @@ public class CompareBy {
 	public static final Comparator<Airport> ICAO = 
 			Comparator.nullsFirst(
 					Comparator.comparing(Airport::getIcao, Comparator.nullsFirst(
-							Comparator.naturalOrder())
-							)
-					);
-	
-	public static final Comparator<Airport> LATITUDE = 
-			Comparator.nullsFirst(
-					Comparator.comparing(Airport::getLatitude, Comparator.nullsFirst(
-							Comparator.naturalOrder())
-							)
-					);
-	
-	public static final Comparator<Airport> LONGITUDE = 
-			Comparator.nullsFirst(
-					Comparator.comparing(Airport::getLongitude, Comparator.nullsFirst(
-							Comparator.naturalOrder())
-							)
-					);
-	
-	public static final Comparator<Airport> ALTITUDE = 
-			Comparator.nullsFirst(
-					Comparator.comparing(Airport::getAltitude, Comparator.nullsFirst(
-							Comparator.naturalOrder())
-							)
-					);
-	
-	public static final Comparator<Airport> OFFSET = 
-			Comparator.nullsFirst(
-					Comparator.comparing(Airport::getOffset, Comparator.nullsFirst(
 							Comparator.naturalOrder())
 							)
 					);

@@ -18,8 +18,13 @@ import com.task.airports.util.comparators.OffsetComparator;
 @Repository
 public class AirportRepositoryImpl implements AirportRepository {
 	
-	private AirportCsvReader airportReader = new AirportCsvReader();
-	private List<Airport> airports = airportReader.readCsvFile();
+	private AirportCsvReader airportReader; 
+	private List<Airport> airports;
+	
+	public AirportRepositoryImpl() {
+		airportReader = new AirportCsvReader();
+		airports = airportReader.readCsvFile();
+	}
 	
 	private String upperFirstLetter(String keyword) {
 		return keyword.substring(0, 1).toUpperCase() + keyword.substring(1);
