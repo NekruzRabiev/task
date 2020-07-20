@@ -1,66 +1,57 @@
-package com.task.airports.entity;
+package com.task.airports.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.opencsv.bean.CsvBindByPosition;
 
-@Entity
-@Table(name = "airports")
 public class Airport {
 
-	@Id
-	@GeneratedValue
-	@Column(name = "id")
+	@CsvBindByPosition(position = 0)
 	private String id;
-	
-	@Column(name = "name")
+
+	@CsvBindByPosition(position = 1)
 	private String name;
-	
-	@Column(name = "city")
+
+	@CsvBindByPosition(position = 2)
 	private String city;
-	
-	@Column(name = "country")
+
+	@CsvBindByPosition(position = 3)
 	private String country;
-	
-	@Column(name = "code")
+
+	@CsvBindByPosition(position = 4)
 	private String code;
-	
-	@Column(name = "icao")
+
+	@CsvBindByPosition(position = 5)
 	private String icao;
-	
-	@Column(name = "latitude")
+
+	@CsvBindByPosition(position = 6)
 	private String latitude;
 
-	@Column(name = "longitude")
+	@CsvBindByPosition(position = 7)
 	private String longitude;
-	
-	@Column(name = "altitude")
+
+	@CsvBindByPosition(position = 8)
 	private String altitude;
-	
-	@Column(name = "offset")
+
+	@CsvBindByPosition(position = 9)
 	private String offset;
-	
-	@Column(name = "dst")
+
+	@CsvBindByPosition(position = 10)
 	private String dst;
-	
-	@Column(name = "timezone")
+
+	@CsvBindByPosition(position = 11)
 	private String timezone;
-	
-	@Column(name = "type")
+
+	@CsvBindByPosition(position = 12)
 	private String type;
 
-	@Column(name = "source")
+	@CsvBindByPosition(position = 13)
 	private String source;
-	
+
 	public Airport() {
-	
+
 	}
 
 	public Airport(String id, String name, String city, String country, String code, String icao, String latitude,
-			String longitude, String altitude, String offset, String dst, String timezone, String type,
-			String source) {
+			String longitude, String altitude, String offset, String dst, String timezone, String type, String source) {
 		this.id = id;
 		this.name = name;
 		this.city = city;
@@ -189,4 +180,12 @@ public class Airport {
 		this.source = source;
 	}
 
+	@Override
+	public String toString() {
+		return "Airport [id=" + id + ", name=" + name + ", city=" + city + ", country=" + country + ", code=" + code
+				+ ", icao=" + icao + ", latitude=" + latitude + ", longitude=" + longitude + ", altitude=" + altitude
+				+ ", offset=" + offset + ", dst=" + dst + ", timezone=" + timezone + ", type=" + type + ", source="
+				+ source + "]";
+	}
+	
 }
