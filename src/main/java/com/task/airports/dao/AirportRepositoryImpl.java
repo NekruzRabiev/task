@@ -11,6 +11,8 @@ import com.task.airports.util.AirportCsvReader;
 import com.task.airports.util.CompareBy;
 import com.task.airports.util.comparators.AltitudeComparator;
 import com.task.airports.util.comparators.IdComparator;
+import com.task.airports.util.comparators.LatitudeComparator;
+import com.task.airports.util.comparators.LongitudeComparator;
 import com.task.airports.util.comparators.OffsetComparator;
 
 @Repository
@@ -40,7 +42,6 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 		
-
 		Collections.sort(airportList, new IdComparator());
 
 		return airportList;
@@ -131,7 +132,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.LATITUDE);
+		Collections.sort(airportList, new LatitudeComparator());
 
 		return airportList;
 	}
@@ -146,7 +147,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.LONGITUDE);
+		Collections.sort(airportList, new LongitudeComparator());
 
 		return airportList;
 	}
