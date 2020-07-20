@@ -2,11 +2,11 @@ package com.task.airports.service;
 
 import java.util.List;
 
-import com.task.airports.entity.Airport;
+import com.task.airports.model.Airport;
 
 public interface AirportService {
 	
-	public List<Airport> findAll();
+	public List<Airport> findAll(); 
 	
 	public List<Airport> findById(String theId);
 	
