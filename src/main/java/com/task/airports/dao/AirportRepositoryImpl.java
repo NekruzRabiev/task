@@ -2,6 +2,7 @@ package com.task.airports.dao;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -32,14 +33,14 @@ public class AirportRepositoryImpl implements AirportRepository {
 	
 	@Override
 	public List<Airport> findAll() {
-		List<Airport> airport = new ArrayList<>(101);
+		List<Airport> airport = new ArrayList<>(100);
 		airport = airports.subList(0, 100);
 		return airport;
 	}
 
 	@Override
 	public List<Airport> findById(String id) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getId().startsWith(id)) {
@@ -47,14 +48,13 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 		
-		Collections.sort(airportList, new IdComparator());
-
+		airportList.sort(new IdComparator());
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByName(String name) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getName().startsWith(upperFirstLetter(name))) {
@@ -62,14 +62,13 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.NAME);
-
+		airportList.sort(CompareBy.NAME);
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByCity(String city) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getCity().startsWith(upperFirstLetter(city))) {
@@ -77,14 +76,13 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.CITY);
-
+		airportList.sort(CompareBy.CITY);
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByCountry(String country) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getCountry().startsWith(upperFirstLetter(country))) {
@@ -93,13 +91,12 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 
 		Collections.sort(airportList, CompareBy.COUNTRY);
-
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByCode(String code) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getCode().startsWith(code.toUpperCase())) {
@@ -108,13 +105,12 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 
 		Collections.sort(airportList, CompareBy.CODE);
-
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByIcao(String icao) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getIcao().startsWith(icao.toUpperCase())) {
@@ -123,13 +119,12 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 
 		Collections.sort(airportList, CompareBy.ICAO);
-
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByLatitude(String latitude) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getLatitude().startsWith(latitude)) {
@@ -138,13 +133,12 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 
 		Collections.sort(airportList, new LatitudeComparator());
-
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByLongitude(String longitude) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getLongitude().startsWith(longitude)) {
@@ -174,7 +168,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 
 	@Override
 	public List<Airport> findByOffset(String offset) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getOffset().startsWith(offset)) {
@@ -183,13 +177,12 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 
 		Collections.sort(airportList, new OffsetComparator());
-
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByDst(String dst) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getDst().startsWith(upperFirstLetter(dst))) {
@@ -198,13 +191,12 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 
 		Collections.sort(airportList, CompareBy.DST);
-
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByTimezone(String timezone) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getTimezone().startsWith(upperFirstLetter(timezone))) {
@@ -213,13 +205,12 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 
 		Collections.sort(airportList, CompareBy.TIMEZONE);
-
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByType(String type) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 		
 		String keyword = type.substring(0, 1).toLowerCase() + type.substring(1);
 		
@@ -230,13 +221,12 @@ public class AirportRepositoryImpl implements AirportRepository {
 		}
 
 		Collections.sort(airportList, CompareBy.TYPE);
-
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findBySource(String source) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getSource().startsWith(upperFirstLetter(source))) {
