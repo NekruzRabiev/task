@@ -17,8 +17,10 @@ public class AirportCsvReader {
 			reader = new FileReader("src/main/resources/airports.csv");
 			ColumnPositionMappingStrategy<Airport> mappingStrategy = new ColumnPositionMappingStrategy<>();
 			mappingStrategy.setType(Airport.class);
-			CsvToBean<Airport> csvToBean = new CsvToBeanBuilder<Airport>(reader).withType(Airport.class)
-					.withMappingStrategy(mappingStrategy).build();
+			CsvToBean<Airport> csvToBean = new CsvToBeanBuilder<Airport>(reader)
+					.withType(Airport.class)
+					.withMappingStrategy(mappingStrategy)
+					.build();
 			return csvToBean.parse();
 		} catch (IOException e) {
 			return null;

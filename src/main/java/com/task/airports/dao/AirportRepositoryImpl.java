@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.task.airports.model.Airport;
 import com.task.airports.util.AirportCsvReader;
-import com.task.airports.util.CompareBy;
 import com.task.airports.util.comparators.AltitudeComparator;
+import com.task.airports.util.comparators.CompareBy;
 import com.task.airports.util.comparators.IdComparator;
 import com.task.airports.util.comparators.LatitudeComparator;
 import com.task.airports.util.comparators.LongitudeComparator;
@@ -33,7 +33,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 	@Override
 	public List<Airport> findAll() {
 		List<Airport> airport = new ArrayList<>(101);
-		airport = airportReader.readCsvFile().subList(0, 100);
+		airport = airports.subList(0, 100);
 		return airport;
 	}
 
