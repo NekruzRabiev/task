@@ -9,8 +9,8 @@ public class LongitudeComparator implements Comparator<Airport>{
 	@Override
 	public int compare(Airport o1, Airport o2) {
 		
-		double num1 = Double.parseDouble(o1.getLatitude());
-		double num2 = Double.parseDouble(o2.getLatitude());
+		double num1 = Double.parseDouble(o1.getLongitude());
+		double num2 = Double.parseDouble(o2.getLongitude());
 		
 		if(num1 > num2) {
 			return 1;

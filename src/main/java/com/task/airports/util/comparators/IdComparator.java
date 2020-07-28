@@ -19,5 +19,4 @@ public class IdComparator implements Comparator<Airport>{
 			return 0;
 		}
 	}
-
 }

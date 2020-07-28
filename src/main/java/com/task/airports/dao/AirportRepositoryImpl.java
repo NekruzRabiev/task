@@ -1,7 +1,6 @@
 package com.task.airports.dao;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -90,7 +89,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.COUNTRY);
+		airportList.sort(CompareBy.COUNTRY);
 		return airportList;
 	}
 
@@ -104,7 +103,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.CODE);
+		airportList.sort(CompareBy.CODE);
 		return airportList;
 	}
 
@@ -118,7 +117,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.ICAO);
+		airportList.sort(CompareBy.ICAO);
 		return airportList;
 	}
 
@@ -132,7 +131,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new LatitudeComparator());
+		airportList.sort(new LatitudeComparator());
 		return airportList;
 	}
 
@@ -146,14 +145,13 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new LongitudeComparator());
-
+		airportList.sort(new LongitudeComparator());
 		return airportList;
 	}
 
 	@Override
 	public List<Airport> findByAltitude(String altitude) {
-		List<Airport> airportList = new ArrayList<>();
+		List<Airport> airportList = new LinkedList<>();
 
 		for (Airport airport : airports) {
 			if (airport.getAltitude().startsWith(altitude)) {
@@ -161,8 +159,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new AltitudeComparator());
-
+		airportList.sort(new AltitudeComparator());
 		return airportList;
 	}
 
@@ -176,7 +173,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, new OffsetComparator());
+		airportList.sort(new OffsetComparator());
 		return airportList;
 	}
 
@@ -190,7 +187,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.DST);
+		airportList.sort(CompareBy.DST);
 		return airportList;
 	}
 
@@ -204,7 +201,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.TIMEZONE);
+		airportList.sort(CompareBy.TIMEZONE);
 		return airportList;
 	}
 
@@ -220,7 +217,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.TYPE);
+		airportList.sort(CompareBy.TYPE);
 		return airportList;
 	}
 
@@ -234,7 +231,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 			}
 		}
 
-		Collections.sort(airportList, CompareBy.SOURCE);
+		airportList.sort(CompareBy.SOURCE);
 		return airportList;
 	}
 

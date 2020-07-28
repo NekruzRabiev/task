@@ -16,8 +16,11 @@ import com.task.airports.service.AirportService;
 @RequestMapping("/airports")
 public class AirportController {
 
-	@Autowired
-	private AirportService airportService;
+	private final AirportService airportService;
+
+	public AirportController(AirportService airportService) {
+		this.airportService = airportService;
+	}
 
 	@GetMapping("/list")
 	public String searchAirport(Model model) {
@@ -83,7 +86,6 @@ public class AirportController {
 		}
 
 		return "invalid";
-
 	}
 
 	@GetMapping("/longitude")
