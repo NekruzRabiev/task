@@ -1,8 +1,10 @@
 package com.task.airports.dao;
 
-import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
 
 import org.springframework.stereotype.Repository;
 
@@ -17,222 +19,107 @@ import com.task.airports.util.comparators.OffsetComparator;
 
 @Repository
 public class AirportRepositoryImpl implements AirportRepository {
-	
-	private AirportCsvReader airportReader; 
-	private List<Airport> airports;
-	
-	public AirportRepositoryImpl() {
-		airportReader = new AirportCsvReader();
-		airports = airportReader.readCsvFile();
+
+	private AirportCsvReader airportReader = new AirportCsvReader();
+	private List<Airport> airports = airportReader.readCsvFile();
+
+	private List<Airport> find(String keyword, Comparator<Airport> comparator, Function<Airport, String> func) {
+		List<Airport> airportList = new LinkedList<>();
+		Airport airport = new Airport();
+		String methodsResult;
+
+		for (Iterator<Airport> iter = airports.iterator(); iter.hasNext();) {
+			airport = iter.next();
+			methodsResult = func.apply(airport);
+
+			if (!(keyword.isEmpty()) && methodsResult.toLowerCase().startsWith(keyword.toLowerCase())) {
+				airportList.add(airport);
+			} else if (keyword.isEmpty() && methodsResult.isEmpty()) {
+				airportList.add(airport);
+			}
+		}
+
+		// List<Airport> airportArray = new ArrayList<>(airportList);
+		airportList.sort(comparator);
+		return airportList;
 	}
-	
-	private String upperFirstLetter(String keyword) {
-		return keyword.substring(0, 1).toUpperCase() + keyword.substring(1);
-	}
-	
+
 	@Override
 	public List<Airport> findAll() {
-		List<Airport> airport = new ArrayList<>(100);
-		airport = airports.subList(0, 100);
-		return airport;
+		if (airports.size() <= 100) {
+			return airports;
+		} else {
+			return airports.subList(0, 100);
+		}
 	}
 
 	@Override
 	public List<Airport> findById(String id) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getId().startsWith(id)) {
-				airportList.add(airport);
-			}
-		}
-		
-		airportList.sort(new IdComparator());
-		return airportList;
+		return find(id, new IdComparator(), Airport::getId);
 	}
 
 	@Override
 	public List<Airport> findByName(String name) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getName().startsWith(upperFirstLetter(name))) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(CompareBy.NAME);
-		return airportList;
+		return find(name, CompareBy.NAME, Airport::getName);
 	}
 
 	@Override
 	public List<Airport> findByCity(String city) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getCity().startsWith(upperFirstLetter(city))) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(CompareBy.CITY);
-		return airportList;
+		return find(city, CompareBy.CITY, Airport::getCity);
 	}
 
 	@Override
 	public List<Airport> findByCountry(String country) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getCountry().startsWith(upperFirstLetter(country))) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(CompareBy.COUNTRY);
-		return airportList;
+		return find(country, CompareBy.COUNTRY, Airport::getCountry);
 	}
 
 	@Override
 	public List<Airport> findByCode(String code) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getCode().startsWith(code.toUpperCase())) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(CompareBy.CODE);
-		return airportList;
+		return find(code, CompareBy.CODE, Airport::getCode);
 	}
 
 	@Override
 	public List<Airport> findByIcao(String icao) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getIcao().startsWith(icao.toUpperCase())) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(CompareBy.ICAO);
-		return airportList;
+		return find(icao, CompareBy.ICAO, Airport::getIcao);
 	}
 
 	@Override
 	public List<Airport> findByLatitude(String latitude) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getLatitude().startsWith(latitude)) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(new LatitudeComparator());
-		return airportList;
+		return find(latitude, new LatitudeComparator(), Airport::getLatitude);
 	}
 
 	@Override
 	public List<Airport> findByLongitude(String longitude) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getLongitude().startsWith(longitude)) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(new LongitudeComparator());
-		return airportList;
+		return find(longitude, new LongitudeComparator(), Airport::getLongitude);
 	}
 
 	@Override
 	public List<Airport> findByAltitude(String altitude) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getAltitude().startsWith(altitude)) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(new AltitudeComparator());
-		return airportList;
+		return find(altitude, new AltitudeComparator(), Airport::getAltitude);
 	}
 
 	@Override
 	public List<Airport> findByOffset(String offset) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getOffset().startsWith(offset)) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(new OffsetComparator());
-		return airportList;
+		return find(offset, new OffsetComparator(), Airport::getOffset);
 	}
 
 	@Override
 	public List<Airport> findByDst(String dst) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getDst().startsWith(upperFirstLetter(dst))) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(CompareBy.DST);
-		return airportList;
+		return find(dst, CompareBy.DST, Airport::getDst);
 	}
 
 	@Override
 	public List<Airport> findByTimezone(String timezone) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getTimezone().startsWith(upperFirstLetter(timezone))) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(CompareBy.TIMEZONE);
-		return airportList;
+		return find(timezone, CompareBy.TIMEZONE, Airport::getTimezone);
 	}
 
 	@Override
 	public List<Airport> findByType(String type) {
-		List<Airport> airportList = new LinkedList<>();
-		
-		String keyword = type.substring(0, 1).toLowerCase() + type.substring(1);
-		
-		for (Airport airport : airports) {
-			if (airport.getType().startsWith(keyword)) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(CompareBy.TYPE);
-		return airportList;
+		return find(type, CompareBy.TYPE, Airport::getType);
 	}
 
 	@Override
 	public List<Airport> findBySource(String source) {
-		List<Airport> airportList = new LinkedList<>();
-
-		for (Airport airport : airports) {
-			if (airport.getSource().startsWith(upperFirstLetter(source))) {
-				airportList.add(airport);
-			}
-		}
-
-		airportList.sort(CompareBy.SOURCE);
-		return airportList;
+		return find(source, CompareBy.SOURCE, Airport::getSource);
 	}
-
 }

@@ -2,7 +2,6 @@ package com.task.airports.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,13 +31,10 @@ public class AirportController {
 	@GetMapping("/id")
 	public String searchAirportById(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		if (keyword.matches("^\\d+$")) {
-			List<Airport> listAirports = airportService.findById(keyword);
-			model.addAttribute("airports", listAirports);
-			return "search-airports";
-		}
-
-		return "invalid";
+		// if (keyword.matches("^\\d+$"))
+		List<Airport> listAirports = airportService.findById(keyword);
+		model.addAttribute("airports", listAirports);
+		return "search-airports";
 	}
 
 	@GetMapping("/name")
@@ -79,49 +75,37 @@ public class AirportController {
 	@GetMapping("/latitude")
 	public String searchAirportByLatitude(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		if (keyword.matches("^[-]?\\d+(\\.\\d+)?$")) {
-			List<Airport> listAirports = airportService.findByLatitude(keyword);
-			model.addAttribute("airports", listAirports);
-			return "search-airports";
-		}
-
-		return "invalid";
+		// (keyword.matches("^[-]?\\d+(\\.\\d+)?$"))
+		List<Airport> listAirports = airportService.findByLatitude(keyword);
+		model.addAttribute("airports", listAirports);
+		return "search-airports";
 	}
 
 	@GetMapping("/longitude")
 	public String searchAirportByLongitude(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		if (keyword.matches("^-?\\d+(\\.\\d+)?$")) {
-			List<Airport> listAirports = airportService.findByLongitude(keyword);
-			model.addAttribute("airports", listAirports);
-			return "search-airports";
-		}
-
-		return "invalid";
+		// if (keyword.matches("^-?\\d+(\\.\\d+)?$")) {
+		List<Airport> listAirports = airportService.findByLongitude(keyword);
+		model.addAttribute("airports", listAirports);
+		return "search-airports";
 	}
 
 	@GetMapping("/altitude")
 	public String searchAirportByAltitude(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		if (keyword.matches("^[-]?\\d*$")) {
-			List<Airport> listAirports = airportService.findByAltitude(keyword);
-			model.addAttribute("airports", listAirports);
-			return "search-airports";
-		}
-
-		return "invalid";
+		// if (keyword.matches("^[-]?\\d*$")) {
+		List<Airport> listAirports = airportService.findByAltitude(keyword);
+		model.addAttribute("airports", listAirports);
+		return "search-airports";
 	}
 
 	@GetMapping("/offset")
 	public String searchAirportByOffset(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		if (keyword.matches("^[-]?\\d*$")) {
-			List<Airport> listAirports = airportService.findByOffset(keyword);
-			model.addAttribute("airports", listAirports);
-			return "search-airports";
-		}
-
-		return "invalid";
+		// if (keyword.matches("^[-]?\\d*$")) {
+		List<Airport> listAirports = airportService.findByOffset(keyword);
+		model.addAttribute("airports", listAirports);
+		return "search-airports";
 	}
 
 	@GetMapping("/dst")

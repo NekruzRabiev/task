@@ -6,6 +6,14 @@ import com.task.airports.model.Airport;
 
 public class CompareBy {
 
+//	public static Comparator<Airport> findProperty(Airport property) {
+//		return Comparator.nullsFirst(
+//					Comparator.comparing(property, Comparator.nullsFirst(
+//							Comparator.naturalOrder())
+//							)
+//					);
+//		}
+	
 	public static final Comparator<Airport> NAME = 
 			Comparator.nullsFirst(
 					Comparator.comparing(Airport::getName, Comparator.nullsFirst(

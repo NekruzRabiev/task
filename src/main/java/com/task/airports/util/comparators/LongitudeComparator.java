@@ -4,20 +4,17 @@ import java.util.Comparator;
 
 import com.task.airports.model.Airport;
 
-public class LongitudeComparator implements Comparator<Airport>{
+public class LongitudeComparator implements Comparator<Airport> {
 
 	@Override
 	public int compare(Airport o1, Airport o2) {
-		
-		double num1 = Double.parseDouble(o1.getLongitude());
-		double num2 = Double.parseDouble(o2.getLongitude());
-		
-		if(num1 > num2) {
+
+		if (o1.getLongitude().isEmpty()) {
 			return 1;
-		} else if (num1 < num2) {
+		} else if (o2.getLongitude().isEmpty()) {
 			return -1;
 		} else {
-			return 0;
+			return Double.valueOf(o1.getLongitude()).compareTo(Double.valueOf(o2.getLongitude()));
 		}
 	}
 

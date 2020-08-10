@@ -10,8 +10,15 @@ public class CityComparator implements Comparator<Airport>{
 		return o1.getCity().compareTo(o2.getCity());
 		
 	}
+	
 	@Override
 	public int compare(Airport o1, Airport o2) {
+		
+		if(o1.getCity().isEmpty()) {
+			return Integer.MAX_VALUE;
+		} else if (o2.getCity().isEmpty()) {
+			return Integer.MIN_VALUE;
+		} 
 		
 		if(compareTo(o1, o2) >= 1) {
 			return 1;
