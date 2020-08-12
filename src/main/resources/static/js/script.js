@@ -10,3 +10,11 @@ function dynamicUrl() {
 		alert("Please set filter");
 	}
 }
+
+function pressEnter(event) {
+	if (event.key === "Enter") {
+		document.getElementById("btnClick").click();
+		return false;
+	}
+	return true;
+}

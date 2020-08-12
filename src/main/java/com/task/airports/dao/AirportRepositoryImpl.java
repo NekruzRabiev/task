@@ -19,30 +19,9 @@ import com.task.airports.util.comparators.OffsetComparator;
 
 @Repository
 public class AirportRepositoryImpl implements AirportRepository {
-
+	
 	private AirportCsvReader airportReader = new AirportCsvReader();
 	private List<Airport> airports = airportReader.readCsvFile();
-
-	private List<Airport> find(String keyword, Comparator<Airport> comparator, Function<Airport, String> func) {
-		List<Airport> airportList = new LinkedList<>();
-		Airport airport = new Airport();
-		String methodsResult;
-
-		for (Iterator<Airport> iter = airports.iterator(); iter.hasNext();) {
-			airport = iter.next();
-			methodsResult = func.apply(airport);
-
-			if (!(keyword.isEmpty()) && methodsResult.toLowerCase().startsWith(keyword.toLowerCase())) {
-				airportList.add(airport);
-			} else if (keyword.isEmpty() && methodsResult.isEmpty()) {
-				airportList.add(airport);
-			}
-		}
-
-		// List<Airport> airportArray = new ArrayList<>(airportList);
-		airportList.sort(comparator);
-		return airportList;
-	}
 
 	@Override
 	public List<Airport> findAll() {
@@ -60,27 +39,27 @@ public class AirportRepositoryImpl implements AirportRepository {
 
 	@Override
 	public List<Airport> findByName(String name) {
-		return find(name, CompareBy.NAME, Airport::getName);
+		return find(name, CompareBy.findProperty(Airport::getName), Airport::getName);
 	}
 
 	@Override
 	public List<Airport> findByCity(String city) {
-		return find(city, CompareBy.CITY, Airport::getCity);
+		return find(city, CompareBy.findProperty(Airport::getCity), Airport::getCity);
 	}
 
 	@Override
 	public List<Airport> findByCountry(String country) {
-		return find(country, CompareBy.COUNTRY, Airport::getCountry);
+		return find(country, CompareBy.findProperty(Airport::getCountry), Airport::getCountry);
 	}
 
 	@Override
 	public List<Airport> findByCode(String code) {
-		return find(code, CompareBy.CODE, Airport::getCode);
+		return find(code, CompareBy.findProperty(Airport::getCode), Airport::getCode);
 	}
 
 	@Override
 	public List<Airport> findByIcao(String icao) {
-		return find(icao, CompareBy.ICAO, Airport::getIcao);
+		return find(icao, CompareBy.findProperty(Airport::getIcao), Airport::getIcao);
 	}
 
 	@Override
@@ -105,21 +84,42 @@ public class AirportRepositoryImpl implements AirportRepository {
 
 	@Override
 	public List<Airport> findByDst(String dst) {
-		return find(dst, CompareBy.DST, Airport::getDst);
+		return find(dst, CompareBy.findProperty(Airport::getDst), Airport::getDst);
 	}
 
 	@Override
 	public List<Airport> findByTimezone(String timezone) {
-		return find(timezone, CompareBy.TIMEZONE, Airport::getTimezone);
+		return find(timezone, CompareBy.findProperty(Airport::getTimezone), Airport::getTimezone);
 	}
 
 	@Override
 	public List<Airport> findByType(String type) {
-		return find(type, CompareBy.TYPE, Airport::getType);
+		return find(type, CompareBy.findProperty(Airport::getType), Airport::getType);
 	}
 
 	@Override
 	public List<Airport> findBySource(String source) {
-		return find(source, CompareBy.SOURCE, Airport::getSource);
+		return find(source, CompareBy.findProperty(Airport::getSource), Airport::getSource);
+	}
+	
+	private List<Airport> find(String keyword, Comparator<Airport> comparator, Function<Airport, String> property) {
+		List<Airport> airportList = new LinkedList<>();
+		Airport airport = new Airport();
+		String methodsResult;
+
+		for (Iterator<Airport> iter = airports.iterator(); iter.hasNext();) {
+			airport = iter.next();
+			methodsResult = property.apply(airport);
+
+			if (!(keyword.isEmpty()) && methodsResult.toLowerCase().startsWith(keyword.toLowerCase())) {
+				airportList.add(airport);
+			} else if (keyword.isEmpty() && methodsResult.isEmpty()) {
+				airportList.add(airport);
+			}
+		}
+
+		// List<Airport> airportArray = new ArrayList<>(airportList);
+		airportList.sort(comparator);
+		return airportList;
 	}
 }

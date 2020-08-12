@@ -24,7 +24,7 @@
 		<h3>Airport Directory</h3>
 		<hr>
 
-		<form id="form_id" method="get" name="myform" class="form-inline">
+		<form id="form_id" method="get" name="myform" class="form-inline" >
 			<select id="form_action" class="form-control  ml-5 mr-sm-2 mb-3">
 				<option value="">--- Set Filter ---</option>
 				<option value="/airports/id">Id</option>
@@ -43,10 +43,10 @@
 				<option value="/airports/source">Source</option>
 			</select>
 
-			<input class="form-control  ml-5 mr-sm-2 mb-3" type="text" id="keyword" onchange="dynamicUrl()"
+			<input class="form-control  ml-5 mr-sm-2 mb-3" type="text" id="keyword" onkeypress="return pressEnter(event)"
 				name="keyword" placeholder="Search by keyword" />
 
-			<input type="button" value="Search" onclick="dynamicUrl()" class="btn btn-success mb-3" />
+			<input type="button" id="btnClick" value="Search" onclick="dynamicUrl()" class="btn btn-success mb-3" />
 		</form>
 
 
