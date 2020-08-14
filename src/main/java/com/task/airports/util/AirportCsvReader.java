@@ -1,12 +1,12 @@
 package com.task.airports.util;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -15,15 +15,24 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.task.airports.model.Airport;
 
-public class AirportCsvReader {
+import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
 
+@Component
+public class AirportCsvReader implements CsvReader{
+	
+	public AirportCsvReader() {
+		
+	}
+
+	@Override
 	public List<Airport> readCsvFile() {
 		Reader reader = null;
+		final String CSVFILE = "airports.csv";
 
 		try {
-			String csvPath = Paths.get("src", "main", "resources", "airports.csv").toString();
-			changeNullToString(csvPath);
-			reader = Files.newBufferedReader(Paths.get(csvPath));
+			changeNullToString(CSVFILE);
+			reader = Files.newBufferedReader(Paths.get(CSVFILE), StandardCharsets.UTF_8);
 			ColumnPositionMappingStrategy<Airport> mappingStrategy = new ColumnPositionMappingStrategy<>();
 			mappingStrategy.setType(Airport.class);
 			CsvToBean<Airport> csvToBean = new CsvToBeanBuilder<Airport>(reader)
@@ -32,6 +41,7 @@ public class AirportCsvReader {
 					.build();
 			return csvToBean.parse();
 		} catch (IOException e) {
+			e.printStackTrace();
 			return null;
 		} finally {
 			try {
@@ -40,18 +50,17 @@ public class AirportCsvReader {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
-	private void changeNullToString(String csvPath) throws IOException {
-			String datPath = Paths.get("src", "main", "resources", "airports.dat").toString();
-			File file = new File(csvPath);
-			file.createNewFile();
-			FileWriter writer = new FileWriter(file);
+	private void changeNullToString(final String CSVFILE) {
+		try {
+			FileWriter writer = new FileWriter(CSVFILE, StandardCharsets.UTF_8);
 			BufferedWriter bufWriter = new BufferedWriter(writer);
-
-			String text = Files.readString(Path.of(datPath));
-
+			
+			InputStream in = this.getClass().getResourceAsStream("/airports.dat");
+			String text = StreamUtils.copyToString(in, StandardCharsets.UTF_8);	
+			in.close();
+			
 			if (text.contains("\\N")) {
 				String result = text.replace("\\N", "\"\"");
 				bufWriter.write(result);
@@ -59,5 +68,8 @@ public class AirportCsvReader {
 
 			bufWriter.flush();
 			bufWriter.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -51,10 +51,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	</dependencies>
+	
+ </dependencies>
 
 	<build>
-	<!-- defaultGoal>package</defaultGoal-->
+		<defaultGoal>package</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

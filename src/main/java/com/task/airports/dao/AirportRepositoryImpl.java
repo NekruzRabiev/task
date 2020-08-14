@@ -6,10 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.task.airports.model.Airport;
-import com.task.airports.util.AirportCsvReader;
+import com.task.airports.util.CsvReader;
 import com.task.airports.util.comparators.AltitudeComparator;
 import com.task.airports.util.comparators.CompareBy;
 import com.task.airports.util.comparators.IdComparator;
@@ -20,11 +21,18 @@ import com.task.airports.util.comparators.OffsetComparator;
 @Repository
 public class AirportRepositoryImpl implements AirportRepository {
 	
-	private AirportCsvReader airportReader = new AirportCsvReader();
-	private List<Airport> airports = airportReader.readCsvFile();
+	private CsvReader airportReader;
+	private List<Airport> airports;
+	
+	@Autowired
+	public AirportRepositoryImpl(CsvReader csvReader) {
+		this.airportReader = csvReader;
+	}
 
 	@Override
 	public List<Airport> findAll() {
+		airports = airportReader.readCsvFile();
+		
 		if (airports.size() <= 100) {
 			return airports;
 		} else {
