@@ -53,23 +53,33 @@ public class AirportCsvReader implements CsvReader{
 	}
 
 	private void changeNullToString(final String CSVFILE) {
+		BufferedWriter bufWriter = null;
+		InputStream in = null;
+
 		try {
 			FileWriter writer = new FileWriter(CSVFILE, StandardCharsets.UTF_8);
-			BufferedWriter bufWriter = new BufferedWriter(writer);
+			bufWriter = new BufferedWriter(writer);
 			
-			InputStream in = this.getClass().getResourceAsStream("/airports.dat");
+			in = this.getClass().getResourceAsStream("/airports.dat");
 			String text = StreamUtils.copyToString(in, StandardCharsets.UTF_8);	
-			in.close();
 			
 			if (text.contains("\\N")) {
 				String result = text.replace("\\N", "\"\"");
 				bufWriter.write(result);
+			} else {
+				bufWriter.write(text);
 			}
-
-			bufWriter.flush();
-			bufWriter.close();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				in.close();
+				bufWriter.flush();
+				bufWriter.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
