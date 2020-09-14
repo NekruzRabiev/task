@@ -49,7 +49,7 @@ public class Airport {
 	public Airport() {
 
 	}
-
+	
 	public Airport(String id, String name, String city, String country, String code, String icao, String latitude,
 			String longitude, String altitude, String offset, String dst, String timezone, String type, String source) {
 		this.id = id;

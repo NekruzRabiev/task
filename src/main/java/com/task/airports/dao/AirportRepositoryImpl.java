@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,10 +30,14 @@ public class AirportRepositoryImpl implements AirportRepository {
 	public AirportRepositoryImpl(CsvReader csvReader) {
 		this.airportReader = csvReader;
 	}
+	
+	@PostConstruct
+	public void loadData() {
+		airports = airportReader.readCsvFile();
+	}
 
 	@Override
-	public List<Airport> findAll() {
-		airports = airportReader.readCsvFile();
+	public List<Airport> findTop100() {
 		
 		if (airports.size() <= 100) {
 			return airports;
@@ -111,6 +117,7 @@ public class AirportRepositoryImpl implements AirportRepository {
 	}
 	
 	private List<Airport> find(String keyword, Comparator<Airport> comparator, Function<Airport, String> property) {
+		long start = System.currentTimeMillis();
 		List<Airport> airportList = new LinkedList<>();
 		Airport airport = new Airport();
 		String methodsResult;
@@ -125,9 +132,12 @@ public class AirportRepositoryImpl implements AirportRepository {
 				airportList.add(airport);
 			}
 		}
-
+		
 		// List<Airport> airportArray = new ArrayList<>(airportList);
 		airportList.sort(comparator);
+		long end = System.currentTimeMillis();
+		
+		System.out.println(end - start);
 		return airportList;
 	}
 }

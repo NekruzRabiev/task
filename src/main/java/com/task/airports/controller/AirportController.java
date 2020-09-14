@@ -23,7 +23,7 @@ public class AirportController {
 
 	@GetMapping("/list")
 	public String searchAirport(Model model) {
-		List<Airport> listAirports = airportService.findAll();
+		List<Airport> listAirports = airportService.findTop100();
 		model.addAttribute("airports", listAirports);
 		return "search-airports";
 	}
@@ -31,7 +31,6 @@ public class AirportController {
 	@GetMapping("/id")
 	public String searchAirportById(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		// if (keyword.matches("^\\d+$"))
 		List<Airport> listAirports = airportService.findById(keyword);
 		model.addAttribute("airports", listAirports);
 		return "search-airports";
@@ -75,7 +74,6 @@ public class AirportController {
 	@GetMapping("/latitude")
 	public String searchAirportByLatitude(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		// (keyword.matches("^[-]?\\d+(\\.\\d+)?$"))
 		List<Airport> listAirports = airportService.findByLatitude(keyword);
 		model.addAttribute("airports", listAirports);
 		return "search-airports";
@@ -84,7 +82,6 @@ public class AirportController {
 	@GetMapping("/longitude")
 	public String searchAirportByLongitude(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		// if (keyword.matches("^-?\\d+(\\.\\d+)?$")) {
 		List<Airport> listAirports = airportService.findByLongitude(keyword);
 		model.addAttribute("airports", listAirports);
 		return "search-airports";
@@ -93,7 +90,6 @@ public class AirportController {
 	@GetMapping("/altitude")
 	public String searchAirportByAltitude(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		// if (keyword.matches("^[-]?\\d*$")) {
 		List<Airport> listAirports = airportService.findByAltitude(keyword);
 		model.addAttribute("airports", listAirports);
 		return "search-airports";
@@ -102,7 +98,6 @@ public class AirportController {
 	@GetMapping("/offset")
 	public String searchAirportByOffset(@RequestParam(value = "keyword") String keyword, Model model) {
 
-		// if (keyword.matches("^[-]?\\d*$")) {
 		List<Airport> listAirports = airportService.findByOffset(keyword);
 		model.addAttribute("airports", listAirports);
 		return "search-airports";

@@ -19,8 +19,8 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	@Override
-	public List<Airport> findAll() {
-		return airportRepository.findAll();
+	public List<Airport> findTop100() {
+		return airportRepository.findTop100();
 	}
 
 	@Override

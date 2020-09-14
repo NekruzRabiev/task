@@ -6,7 +6,7 @@ import com.task.airports.model.Airport;
 
 public interface AirportService {
 	
-	public List<Airport> findAll(); 
+	public List<Airport> findTop100(); 
 	
 	public List<Airport> findById(String theId);
 	
