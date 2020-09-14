@@ -27,6 +27,7 @@ public class AirportController {
 		return "search-airports";
 	}
 	
+	
 	@GetMapping("/id")
 	public String searchAirportById(@RequestParam(value = "keyword") String keyword, Model model) {
 
@@ -55,7 +56,7 @@ public class AirportController {
 	
 	@GetMapping("/country")
 	public String searchAirportByCountry(@RequestParam(value = "keyword") String keyword, Model model) {
-		List<Airport> listAirports = airportService.findByName(keyword);
+		List<Airport> listAirports = airportService.findByCountry(keyword);
 		model.addAttribute("airports", listAirports);	
 		return "search-airports";
 	}

@@ -2,11 +2,11 @@ package com.task.airports.service;
 
 import java.util.List;
 
-import com.task.airports.dao.AirportRepository;
-import com.task.airports.entity.Airport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.task.airports.dao.AirportRepository;
+import com.task.airports.entity.Airport;
 
 @Service
 public class AirportServiceImpl implements AirportService {
@@ -60,7 +60,7 @@ public class AirportServiceImpl implements AirportService {
 
 	@Override
 	public List<Airport> findByLongtitude(String longtitude) {
-		return airportRepository.findByLongtitude(longtitude);
+		return airportRepository.findByLongitude(longtitude);
 	}
 
 	@Override

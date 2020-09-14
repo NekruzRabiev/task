@@ -33,8 +33,8 @@ public class Airport {
 	@Column(name = "latitude")
 	private String latitude;
 
-	@Column(name = "longtitude")
-	private String longtitude;
+	@Column(name = "longitude")
+	private String longitude;
 	
 	@Column(name = "altitude")
 	private String altitude;
@@ -59,7 +59,7 @@ public class Airport {
 	}
 
 	public Airport(String id, String name, String city, String country, String code, String icao, String latitude,
-			String longtitude, String altitude, String offset, String dst, String timezone, String type,
+			String longitude, String altitude, String offset, String dst, String timezone, String type,
 			String source) {
 		this.id = id;
 		this.name = name;
@@ -68,7 +68,7 @@ public class Airport {
 		this.code = code;
 		this.icao = icao;
 		this.latitude = latitude;
-		this.longtitude = longtitude;
+		this.longitude = longitude;
 		this.altitude = altitude;
 		this.offset = offset;
 		this.dst = dst;
@@ -133,12 +133,12 @@ public class Airport {
 		this.latitude = latitude;
 	}
 
-	public String getLongtitude() {
-		return longtitude;
+	public String getLongitude() {
+		return longitude;
 	}
 
-	public void setLongtitude(String longtitude) {
-		this.longtitude = longtitude;
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getAltitude() {

@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.task.airports.entity.Airport;
 
-public interface AirportRepository extends JpaRepository<Airport, Integer>{
+public interface AirportRepository extends JpaRepository<Airport, Integer> {
 	public List<Airport> findTop100ByOrderByIdAsc();
 
 	@Query("SELECT a FROM Airport a WHERE a.id LIKE :search% ORDER BY a.id ASC")
@@ -32,24 +32,24 @@ public interface AirportRepository extends JpaRepository<Airport, Integer>{
 	@Query("SELECT a FROM Airport a WHERE a.latitude LIKE :search% ORDER BY a.latitude ASC")
 	public List<Airport> findByLatitude(@Param("search") String latitude);
 
-	@Query("SELECT a FROM Airport a WHERE a.longtitude LIKE :search% ORDER BY a.longtitude ASC")
-	public List<Airport> findByLongtitude(@Param("search") String longtitude);
-	
+	@Query("SELECT a FROM Airport a WHERE a.longitude LIKE :search% ORDER BY a.longitude ASC")
+	public List<Airport> findByLongitude(@Param("search") String longitude);
+
 	@Query("SELECT a FROM Airport a WHERE a.altitude LIKE :search% ORDER BY a.altitude ASC")
 	public List<Airport> findByAltitude(@Param("search") String altitude);
-	
+
 	@Query("SELECT a FROM Airport a WHERE a.offset LIKE :search% ORDER BY a.offset ASC")
 	public List<Airport> findByOffset(@Param("search") String offset);
-	
+
 	@Query("SELECT a FROM Airport a WHERE a.dst LIKE :search% ORDER BY a.dst ASC")
 	public List<Airport> findByDst(@Param("search") String dst);
-	
+
 	@Query("SELECT a FROM Airport a WHERE a.timezone LIKE :search% ORDER BY a.timezone ASC")
 	public List<Airport> findByTimezone(@Param("search") String timezone);
-	
+
 	@Query("SELECT a FROM Airport a WHERE a.type LIKE :search% ORDER BY a.type ASC")
 	public List<Airport> findByType(@Param("search") String type);
-	
+
 	@Query("SELECT a FROM Airport a WHERE a.source LIKE :search% ORDER BY a.source ASC")
 	public List<Airport> findBySource(@Param("search") String source);
 }
