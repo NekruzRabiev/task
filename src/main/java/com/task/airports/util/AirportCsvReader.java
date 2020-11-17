@@ -9,20 +9,20 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
+
+import org.springframework.stereotype.Component;
 
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.task.airports.model.Airport;
 
-import org.springframework.stereotype.Component;
-import org.springframework.util.StreamUtils;
-
 @Component
-public class AirportCsvReader implements CsvReader{
-	
+public class AirportCsvReader implements CsvReader {
+
 	public AirportCsvReader() {
-		
+
 	}
 
 	@Override
@@ -35,10 +35,8 @@ public class AirportCsvReader implements CsvReader{
 			reader = Files.newBufferedReader(Paths.get(CSVFILE), StandardCharsets.UTF_8);
 			ColumnPositionMappingStrategy<Airport> mappingStrategy = new ColumnPositionMappingStrategy<>();
 			mappingStrategy.setType(Airport.class);
-			CsvToBean<Airport> csvToBean = new CsvToBeanBuilder<Airport>(reader)
-					.withType(Airport.class)
-					.withMappingStrategy(mappingStrategy)
-					.build();
+			CsvToBean<Airport> csvToBean = new CsvToBeanBuilder<Airport>(reader).withType(Airport.class)
+					.withMappingStrategy(mappingStrategy).build();
 			return csvToBean.parse();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -55,28 +53,33 @@ public class AirportCsvReader implements CsvReader{
 	private void changeNullToString(final String CSVFILE) {
 		BufferedWriter bufWriter = null;
 		InputStream in = null;
+		Scanner sc = null;
 
 		try {
 			FileWriter writer = new FileWriter(CSVFILE, StandardCharsets.UTF_8);
 			bufWriter = new BufferedWriter(writer);
-			
+
 			in = this.getClass().getResourceAsStream("/airports.dat");
-			String text = StreamUtils.copyToString(in, StandardCharsets.UTF_8);	
-			
-			if (text.contains("\\N")) {
-				String result = text.replace("\\N", "\"\"");
-				bufWriter.write(result);
-			} else {
-				bufWriter.write(text);
+			sc = new Scanner(in, StandardCharsets.UTF_8);
+
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+
+				if (line.contains("\\N")) {
+					line = line.replace("\\N", "\"\"");
+					bufWriter.write(line + "\n");
+				} else {
+					bufWriter.write(line + "\n");
+				}
 			}
-			
-		} catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				in.close();
-				bufWriter.flush();
 				bufWriter.close();
+				sc.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

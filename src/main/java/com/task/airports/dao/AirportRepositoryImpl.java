@@ -39,11 +39,13 @@ public class AirportRepositoryImpl implements AirportRepository {
 	@Override
 	public List<Airport> findTop100() {
 		
-		if (airports.size() <= 100) {
-			return airports;
-		} else {
-			return airports.subList(0, 100);
-		}
+//		if (airports.size() <= 100) {
+//			return airports;
+//		} else {
+//			return airports.subList(0, 100);
+//		}
+		
+		return airports.size() <= 100 ? airports : airports.subList(0, 100);
 	}
 
 	@Override
@@ -118,11 +120,16 @@ public class AirportRepositoryImpl implements AirportRepository {
 	
 	private List<Airport> find(String keyword, Comparator<Airport> comparator, Function<Airport, String> property) {
 		long start = System.currentTimeMillis();
+		
 		List<Airport> airportList = new LinkedList<>();
+		
 		Airport airport = new Airport();
+		
 		String methodsResult;
 
-		for (Iterator<Airport> iter = airports.iterator(); iter.hasNext();) {
+		Iterator<Airport> iter = airports.iterator();
+		
+		while (iter.hasNext()) {
 			airport = iter.next();
 			methodsResult = property.apply(airport);
 
@@ -140,4 +147,24 @@ public class AirportRepositoryImpl implements AirportRepository {
 		System.out.println(end - start);
 		return airportList;
 	}
+	
+//	private boolean startsWith(String line, String prefix) {
+//		if (line.length() < prefix.length())
+//			return false;
+//		
+//		if (line.charAt(prefix.length() -1) != prefix.charAt(prefix.length() - 1))
+//			return false;
+//		
+//		for (int i = 0; i < prefix.length(); i++) {
+//			if (line.charAt(i) == prefix.charAt(i)) {
+//				if (i == prefix.length() - 1) {
+//					return true;
+//				}
+//			} else {
+//				return false;
+//			}
+//		}
+//		
+//		return false;
+//	}
 }
